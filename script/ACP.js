@@ -11,9 +11,16 @@ function setGraph(){
 		.defer(d3.csv, "data/puechabon/acp/vec_propre.csv",d3.values)
 		.defer(d3.csv, "data/puechabon/acp/beta_eq.csv",d3.values)
 		.defer(d3.csv, "data/puechabon/SLIDERS/factMult_origin.csv",d3.values)
-		.await(calcul);    
+		.await(function(error,X_par_heure,data_stand,vec_propre,beta_eq,factMult_origin){
+			if (error){
+				console.error('erreur defer'+ error);
+			}
+			else{
+				calcul(X_par_heure,data_stand,vec_propre,beta_eq,factMult_origin);
+			}
+		});    
     
-    function calcul(error,X_par_heure,data_stand,vec_propre,beta_eq,factMult_origin){ 
+    function calcul(X_par_heure,data_stand,vec_propre,beta_eq,factMult_origin){ 
 			for  (var i=0;i<28;i++) {
     			for  (var j=1;j<49;j++) {
     				
